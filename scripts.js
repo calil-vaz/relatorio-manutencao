@@ -7,10 +7,10 @@ const input_new_task = document.getElementById("input_new_task");
 const description = document.getElementById("description");
 const save_task = document.getElementById("save_task");
 const tasks_container = document.getElementById("tasks");
-const imageInput = document.getElementById("imageInput1"); // Captura o input de imagem
-let selectedImage = null; // Variável para armazenar a URL da imagem selecionada
-const element = document.getElementById("contentPDF"); // Seleciona a área a ser convertida em PDF
-const selectImageButton = document.getElementById("selectImageButton"); // Botão de selecionar imagem
+const imageInput = document.getElementById("imageInput1"); 
+let selectedImage = null; 
+const element = document.getElementById("contentPDF"); 
+const selectImageButton = document.getElementById("selectImageButton"); 
 var modal = document.getElementById("modal");
 const iconUser = document.getElementById("icon-user");
 const modalEditProfile = document.getElementById("content-profile");
@@ -23,36 +23,25 @@ const containerInputsProfile = document.getElementById(
 );
 var html = document.querySelector("html");
 var body = document.querySelector("body");
-
-// let contador = 570;
-// let page = 1;
-
 function obterDataAtualFormatada() {
   const hoje = new Date();
-  const dia = String(hoje.getDate()).padStart(2, "0"); // Garante 2 dígitos
-  const mes = String(hoje.getMonth() + 1).padStart(2, "0"); // Mês (0-11) +1
+  const dia = String(hoje.getDate()).padStart(2, "0"); 
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0"); 
   const ano = hoje.getFullYear();
-
   return `${dia}/${mes}/${ano}`;
 }
-
 function editProfile() {
   modalEditProfile.style.display = "block";
   modalEditProfile.style.visibility = "visible";
 }
-
 function closeProfile() {
   modalEditProfile.style.display = "none";
   modalEditProfile.style.visibility = "hidden";
 }
-
 function saveProfile() {
-  // Obtém os valores dos inputs
   let bandeira = document.getElementById("selectBandeira").value;
   let loja = document.getElementById("storeProfile").value;
   let tecnico = document.getElementById("nameTechnical").value;
-
-  // Verifica se todos os campos estão preenchidos
   if (!bandeira || !loja || !tecnico) {
     Toastify({
       text: "Preencha todos os campos",
@@ -67,8 +56,6 @@ function saveProfile() {
     }).showToast();
     return;
   }
-
-  // Substitui os placeholders do HTML pelos valores digitados
   containerInputsProfile.innerHTML = `
     <div>
       <label>Bandeira:</label>
@@ -96,17 +83,10 @@ function saveProfile() {
       <button id="close_profile" onclick="closeProfile()">Cancelar</button>
     </div>
   `;
-
   const valueProfile = [bandeira, loja, tecnico];
-
-  // Salva os dados no localStorage
   localStorage.setItem("savedProfile", JSON.stringify(valueProfile));
   localStorage.setItem("savedInputs", containerInputsProfile.innerHTML);
-
   iconUser.style.color = "var(--color-font)";
-
-  // alert("Perfil salvo com sucesso!");
-
   Toastify({
     text: "Perfil salvo com sucesso!",
     duration: 3000,
@@ -120,47 +100,34 @@ function saveProfile() {
   }).showToast();
   closeProfile();
 }
-
 function mostrarModal() {
   html.style.overflow = "hidden";
   body.style.overflow = "hidden";
   modal.style.visibility = "visible";
   modal.style.display = "flex";
 }
-
-// Function for delete task
 function deleteTask(event) {
   var task = event.target.closest(".container-task");
   task.remove();
   saveTask();
 }
-
-// Function to save tasks in localStorage
 function saveTask() {
   localStorage.setItem("savedContent", tasks_container.innerHTML);
 }
-
-// Adiciona evento de mudança no input de arquivo
 imageInput.addEventListener("change", function (event) {
-  const file = event.target.files[0]; // Obtém o arquivo selecionado
+  const file = event.target.files[0];
   if (file) {
-    // Altera a cor do botão para verde e o texto para "Imagem selecionada"
     selectImageButton.classList.add("selected");
     selectImageButton.classList.remove("red");
     selectImageButton.textContent = "Imagem selecionada";
   } else {
-    // Reseta o botão caso nenhuma imagem seja selecionada
     selectImageButton.classList.remove("selected");
     selectImageButton.textContent = "ADICIONAR IMAGEM";
   }
 });
-
-// Function to add new task with checkbox working
-
 function addTask(title, store) {
   var newDiv = document.createElement("div");
   newDiv.className = "container-task";
-
   newDiv.innerHTML = `
       <div class="header-task">
                 <div>
@@ -174,35 +141,23 @@ function addTask(title, store) {
                 <p>${description.value}</p>
             </div>
   `;
-
-  // Adds click and change events for new task
   newDiv.querySelector(".fa-trash").addEventListener("click", deleteTask);
-
   tasks_container.appendChild(newDiv);
   saveTask();
 }
-
-// Detecta quando uma nova imagem é selecionada
 imageInput.addEventListener("change", function (event) {
-  const file = event.target.files[0]; // Obtém o arquivo selecionado
+  const file = event.target.files[0];
   if (file) {
     const reader = new FileReader();
-
-    // Quando o arquivo for lido, armazena a URL base64
     reader.onload = function (e) {
-      selectedImage = e.target.result; // URL da imagem em base64
+      selectedImage = e.target.result;
     };
-
-    reader.readAsDataURL(file); // Lê o arquivo como uma URL base64
+    reader.readAsDataURL(file);
   }
 });
-
-// Modifique a função addTask para incluir a imagem na tarefa
 function addTask(title, store) {
   var newDiv = document.createElement("div");
   newDiv.className = "container-task";
-
-  // Verifica se há uma imagem selecionada
   const imageHTML = selectedImage
     ? `<img src="${selectedImage}" alt="Imagem da tarefa" class="task-image">`
     : "";
@@ -220,61 +175,41 @@ function addTask(title, store) {
         <p>${description.value}</p>
       </div>
   `;
-
-  // Adiciona eventos para a nova tarefa
   newDiv.querySelector(".fa-trash").addEventListener("click", deleteTask);
-
   tasks_container.appendChild(newDiv);
   saveTask();
-
-  // Limpa a variável de imagem selecionada
   selectedImage = null;
 }
-
-// Adds the change event to the checkbox of each task
 document.querySelectorAll(".check-task").forEach(function (checkbox) {
   checkbox.addEventListener("change", chackedTask);
 });
-
 window.addEventListener("load", function () {
   const savedInputs = localStorage.getItem("savedInputs");
-
   if (savedInputs) {
     containerInputsProfile.innerHTML = savedInputs;
   }
 });
-
-// Load saved tasks on page load
 window.addEventListener("load", function () {
   const savedContent = localStorage.getItem("savedContent");
   if (savedContent) {
     tasks_container.innerHTML = savedContent;
-
-    // Reassign events to loaded tasks
     document.querySelectorAll(".fa-trash").forEach(function (btn) {
       btn.addEventListener("click", deleteTask);
     });
-
     document.querySelectorAll(".check-task").forEach(function (checkbox) {
       checkbox.addEventListener("change", chackedTask);
     });
   }
 });
-
-// Open form to create task
-
 add_task.addEventListener("click", function () {
   form_new_task.style.display = "flex";
   form_new_task.style.visibility = "visible";
 });
-
-// Cancel new task
 function cancelTask() {
   input_new_task.value = "";
   form_new_task.style.display = "none";
   form_new_task.style.visibility = "hidden";
 }
-
 save_task.addEventListener("click", function () {
   if (
     input_new_task.value == "" ||
@@ -285,7 +220,6 @@ save_task.addEventListener("click", function () {
     if (selectImageButton.attributes.class.nodeValue == "custom-file-upload") {
       selectImageButton.classList.add("red");
     }
-
     Toastify({
       text: "Preencha todos os campos",
       duration: 3000,
@@ -309,7 +243,6 @@ save_task.addEventListener("click", function () {
   }
   cancelTask()
 });
-
 function generatePDF() {
   if (localStorage.getItem("savedProfile") == null) {
     iconUser.style.color = "red";
@@ -342,13 +275,9 @@ function generatePDF() {
   }
 
   let profileData = JSON.parse(localStorage.getItem("savedProfile"));
-
   mostrarModal();
-
   const element = document.getElementById("contentPDF");
-  const tasks = document.querySelectorAll(".container-task"); // Captura todas as tarefas
-
-  // Gera o conteúdo base do PDF
+  const tasks = document.querySelectorAll(".container-task");
   element.innerHTML = `
     <table>
       <thead>
@@ -384,24 +313,16 @@ function generatePDF() {
   `;
 
   const containerTable = document.getElementById("container-table");
-  let currentHeight = 0; // Altura acumulada para verificar limite da página
-  const pageHeight = 1122; // Altura aproximada de uma página A4 em px (em tela)
-
-  // Adiciona cada tarefa ao conteúdo
-  // Certifique-se de que `contador` e `page` estão definidos e inicializados corretamente
+  let currentHeight = 0;
+  const pageHeight = 1122;
   let contador = 700;
   let page = 1;
-  // console.log(tasks);
-
-  // Itera sobre as tarefas
   tasks.forEach((task, index) => {
     const store = task.querySelector(".header-task h4:first-child").textContent;
     const title = task.querySelector(".header-task h4:last-child").textContent;
     const description = task.querySelector("p").textContent;
     const imgElement = task.querySelector(".task-image");
     const imgSrc = imgElement ? imgElement.src : null;
-
-    // Atualiza o HTML da tarefa
     const taskHTML = `
     <table>
       <thead class="task-table">
@@ -422,33 +343,17 @@ function generatePDF() {
       </thead>
     </table>
   `;
-
-    // Adiciona a nova tarefa ao container
     containerTable.innerHTML += taskHTML;
   });
-
-  // Atualiza a lista de tabelas após adicionar novas tarefas
   let taskTable = document.querySelectorAll(".task-table");
-
-  // Itera sobre as tabelas e aplica a lógica de quebra de página
   taskTable.forEach((task, index) => {
     const bottomPosition = task.offsetTop + task.offsetHeight;
-    // console.log("tarefa: " + Number(index + 1));
-    // console.log("Altura final: ", bottomPosition);
-    // console.log("Contador: ", contador);
-    // console.log("===================================");
-
     if (bottomPosition >= contador) {
       task.classList.add("page-break");
       contador += 700;
       page += 1;
-      // if (page >= 4) {
-      //   contador -= 50;
-      // }
     }
   });
-
-  // Configurações do PDF
   html2pdf()
     .set({
       margin: [30, 0, 25, 0],
@@ -463,14 +368,9 @@ function generatePDF() {
       const pageCount = pdf.internal.getNumberOfPages();
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
-
       for (let i = 1; i <= pageCount; i++) {
         pdf.setPage(i);
-
-        // Adicionar cabeçalho
         pdf.addImage("./images/logo-gp-pereira 2.png", "PNG", 85, -4, 40, 40);
-
-        // Adicionar rodapé
         pdf.addImage(
           "./images/footer.png",
           "PNG",
@@ -480,11 +380,9 @@ function generatePDF() {
           15
         );
       }
-
       pdf.save(`Relatorio.pdf`);
     })
     .then(() => {
-      // Recarrega a página após o PDF ser salvo
       window.location.reload();
     });
 }
