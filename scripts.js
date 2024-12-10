@@ -125,26 +125,6 @@ imageInput.addEventListener("change", function (event) {
     selectImageButton.textContent = "ADICIONAR IMAGEM";
   }
 });
-function addTask(title, store) {
-  var newDiv = document.createElement("div");
-  newDiv.className = "container-task";
-  newDiv.innerHTML = `
-      <div class="header-task">
-                <div>
-                    <h4>Loja ${store}</h4>
-                    <h4>${title}</h4>
-                </div>
-                <i class="fa-solid fa-trash" aria-hidden="true"></i>
-
-            </div>
-            <div>
-                <p>${description.value}</p>
-            </div>
-  `;
-  newDiv.querySelector(".fa-trash").addEventListener("click", deleteTask);
-  tasks_container.appendChild(newDiv);
-  saveTask();
-}
 imageInput.addEventListener("change", function (event) {
   const file = event.target.files[0];
   if (file) {
