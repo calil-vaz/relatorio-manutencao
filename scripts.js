@@ -190,7 +190,8 @@ function cancelTask() {
   form_new_task.style.display = "none";
   form_new_task.style.visibility = "hidden";
 }
-save_task.addEventListener("click", function () {
+
+function saveTaskTable() {
   if (
     input_new_task.value == "" ||
     store.value == "" ||
@@ -222,7 +223,8 @@ save_task.addEventListener("click", function () {
     selectImageButton.textContent = "ADICIONAR IMAGEM";
      cancelTask()
   }
-});
+}
+
 function generatePDF() {
   if (localStorage.getItem("savedProfile") == null) {
     iconUser.style.color = "red";
