@@ -240,8 +240,8 @@ save_task.addEventListener("click", function () {
     description.value = "";
     selectImageButton.classList.remove("selected");
     selectImageButton.textContent = "ADICIONAR IMAGEM";
+     cancelTask()
   }
-  cancelTask()
 });
 function generatePDF() {
   if (localStorage.getItem("savedProfile") == null) {
