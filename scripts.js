@@ -21,6 +21,8 @@ const nameTechnical = document.getElementById("nameTechnical");
 const containerInputsProfile = document.getElementById(
   "containerInputsProfile"
 );
+var html = document.querySelector("html");
+var body = document.querySelector("body");
 
 // let contador = 570;
 // let page = 1;
@@ -120,6 +122,8 @@ function saveProfile() {
 }
 
 function mostrarModal() {
+  html.style.overflow = "hidden";
+  body.style.overflow = "hidden";
   modal.style.visibility = "visible";
   modal.style.display = "flex";
 }
@@ -384,7 +388,7 @@ function generatePDF() {
 
   // Adiciona cada tarefa ao conteúdo
   // Certifique-se de que `contador` e `page` estão definidos e inicializados corretamente
-  let contador = 650;
+  let contador = 700;
   let page = 1;
   // console.log(tasks);
 
@@ -403,7 +407,7 @@ function generatePDF() {
         <th style="height: auto; width: 50%; padding: 0;">
           ${
             imgSrc
-              ? `<img src="${imgSrc}" style="width:100%; max-height:340px;">`
+              ? `<img src="${imgSrc}" style="max-height:340px;">`
               : ""
           }
         </th>
@@ -435,11 +439,8 @@ function generatePDF() {
 
     if (bottomPosition >= contador) {
       task.classList.add("page-break");
-      contador += 650;
+      contador += 700;
       page += 1;
-      // if (page >= 4) {
-      //   contador -= 50;
-      // }
     }
   });
 
