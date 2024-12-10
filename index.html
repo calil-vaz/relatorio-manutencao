@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    <link rel="manifest" href="./manifest.json">
+    <link href="./images/icon-app.jpeg" rel="icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+
+    <div id="modal">
+        <div class="logo">
+            <img style="width: 8rem;" src="./images/icon-gp-pereira-loading.svg" alt="Logo Grupo Pereira">
+        </div>
+    </div>
+
+    <div id="content-profile">
+        <img class="logo" src="./images/logo-gp-pereira.svg" alt="Logo">
+        <h2>Editar Perfil</h2>
+        <div id="containerInputsProfile">
+            <div>
+                <label>Bandeira:</label>
+                <br>
+                <select required id="selectBandeira">
+                    <option value="">Selecione a Bandeira</option>
+                    <option value="Fort Atacadista">Fort Atacadista</option>
+                    <option value="Sempre Fort">Sempre Fort</option>
+                    <option value="Bate Fort">Bate Fort</option>
+                    <option value="Comper">Comper</option>
+                    <option value="Perlog">Perlog</option>
+                    <option value="Fort Atacadista Posto">Fort Atacadista Posto</option>
+                </select>
+                <br>
+                <label>Loja:</label>
+                <br>
+                <input type="number" id="storeProfile" placeholder="Digite o número da sua loja">
+                <br>
+                <label>Técnico:</label>
+                <br>
+                <input id="nameTechnical" type="text" placeholder="Digite seu nome">
+            </div>
+            <div>
+                <button id="save_profile" onclick="saveProfile()">Salvar</button>
+                <button id="close_profile" onclick="closeProfile()">Cancelar</button>
+            </div>
+
+        </div>
+
+    </div>
+    <header>
+        <img class="logo" src="./images/logo-gp-pereira.svg" alt="Logo">
+        <i id="icon-user" class="fa-regular fa-user" onclick="editProfile()"></i>
+        <h2>Lista de Relatórios</h2>
+
+    </header>
+    <main>
+        <div id="tasks">
+
+        </div>
+    </main>
+
+    <div id="form-new-task">
+        <div>
+            <div>
+                <img class="logo-form" src="./images/logo-gp-pereira.svg" alt="Logo">
+                <h3 style="margin-bottom: .4rem;">Novo Relatório</h3>
+                <div id="containerInputs">
+                    <input type="number" id="store" placeholder="Digite o número da loja">
+                    <input id="input_new_task" type="text" placeholder="Digite um título">
+                    <textarea id="description" cols="30"></textarea>
+                    <label for="imageInput1" class="custom-file-upload" id="selectImageButton">
+                        ADICIONAR IMAGEM
+                    </label>
+
+                    <input type="file" id="imageInput1" accept="image/*">
+                </div>
+            </div>
+            <div id="containerButtons">
+                <button id="save_task">Salvar</button>
+                <button id="cancel_task">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <i id="add_task" class="fa-solid fa-plus"></i>
+
+    <footer>
+        <button onclick="generatePDF()" id="generatePDF">Gerar PDF</button>
+        <div>
+            <p>DESENVOLVIDO POR CALIL ASIR VAZ VELOZO</p>
+            <p>LOJA 295</p>
+        </div>
+    </footer>
+
+    <div id="contentPDF">
+
+    </div>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://kit.fontawesome.com/318c0c8c09.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="./scripts.js"></script>
+</body>
+
+</html>
