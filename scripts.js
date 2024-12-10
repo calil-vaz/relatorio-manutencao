@@ -98,7 +98,7 @@ function saveProfile() {
       background: "#28a745",
     },
   }).showToast();
-  closeProfile();
+  // closeProfile();
 }
 function mostrarModal() {
   html.style.overflow = "hidden";
