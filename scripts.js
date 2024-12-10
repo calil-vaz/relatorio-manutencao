@@ -269,11 +269,11 @@ add_task.addEventListener("click", function () {
 });
 
 // Cancel new task
-button_cancel_task.addEventListener("click", function () {
+function cancelTask() {
   input_new_task.value = "";
   form_new_task.style.display = "none";
   form_new_task.style.visibility = "hidden";
-});
+}
 
 save_task.addEventListener("click", function () {
   if (
@@ -307,6 +307,7 @@ save_task.addEventListener("click", function () {
     selectImageButton.classList.remove("selected");
     selectImageButton.textContent = "ADICIONAR IMAGEM";
   }
+  cancelTask()
 });
 
 function generatePDF() {
@@ -441,6 +442,9 @@ function generatePDF() {
       task.classList.add("page-break");
       contador += 700;
       page += 1;
+      // if (page >= 4) {
+      //   contador -= 50;
+      // }
     }
   });
 
